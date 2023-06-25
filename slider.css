@@ -1,0 +1,398 @@
+@charset "utf-8";
+
+/*========= ナビゲーションのためのCSS ===============*/
+
+/*アクティブになったエリア*/
+#g-nav.panelactive{
+    /*position:fixed;にし、z-indexの数値を大きくして前面へ*/
+    position:fixed;
+    z-index: 999;
+  top: 0;
+  width:100%;
+    height: 100vh;
+}
+
+/*丸の拡大*/
+.circle-bg{
+    position: fixed;
+  z-index:3;
+    /*丸の形*/
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: #999;
+    /*丸のスタート位置と形状*/
+  transform: scale(0);/*scaleをはじめは0に*/
+    left:-50px;
+    top:calc(50% - 50px);/*50%から円の半径を引いた値*/
+    transition: all .6s;/*0.6秒かけてアニメーション*/
+}
+
+.circle-bg.circleactive{
+  transform: scale(50);/*クラスが付与されたらscaleを拡大*/
+}
+
+/*ナビゲーションの縦スクロール*/
+#g-nav-list{
+    display: none;/*はじめは表示なし*/
+    /*ナビの数が増えた場合縦スクロール*/
+    position: fixed;
+    z-index: 999; 
+    width: 100%;
+    height: 100vh;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+#g-nav.panelactive #g-nav-list{
+     display: block; /*クラスが付与されたら出現*/
+}
+
+/*ナビゲーション*/
+#g-nav ul {
+  opacity: 0;/*はじめは透過0*/
+    /*ナビゲーション天地中央揃え※レイアウトによって調整してください。不必要なら削除*/
+    position: absolute;
+    z-index: 999;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+/*背景が出現後にナビゲーションを表示*/
+#g-nav.panelactive ul {
+    opacity:1;
+}
+
+/* 背景が出現後にナビゲーション li を表示※レイアウトによって調整してください。不必要なら削除*/
+#g-nav.panelactive ul li{
+animation-name:gnaviAnime;
+animation-duration:1s;
+animation-delay:.2s;/*0.2 秒遅らせて出現*/
+animation-fill-mode:forwards;
+opacity:0;
+}
+@keyframes gnaviAnime{
+0% {
+opacity: 0;
+}
+100% {
+opacity: 1;
+}
+}
+
+
+/*リストのレイアウト設定*/
+#g-nav li{
+  text-align: center; 
+  list-style: none;
+}
+
+#g-nav li a{
+  color: #333;
+  text-decoration: none;
+  padding:10px;
+  display: block;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: bold;
+}
+
+
+/*========= ボタンのためのCSS ===============*/
+.openbtn1{
+  position:fixed;
+  top:10px;
+  left: 10px;
+  z-index: 9999;/*ボタンを最前面に*/
+  cursor: pointer;
+    width: 50px;
+    height:50px;
+}
+  
+/*×に変化*/  
+.openbtn1 span{
+    display: inline-block;
+    transition: all .4s;
+    position: absolute;
+    left: 14px;
+    height: 3px;
+    border-radius: 2px;
+  background-color: #666;
+    width: 45%;
+  }
+
+.openbtn1 span:nth-of-type(1) {
+  top:15px; 
+}
+
+.openbtn1 span:nth-of-type(2) {
+  top:23px;
+}
+
+.openbtn1 span:nth-of-type(3) {
+  top:31px;
+}
+
+.openbtn1.active span:nth-of-type(1) {
+    top: 18px;
+    left: 18px;
+    transform: translateY(6px) rotate(-45deg);
+    width: 30%;
+}
+
+.openbtn1.active span:nth-of-type(2) {
+  opacity: 0;
+}
+
+/*========= レイアウトのためのCSS ===============*/
+
+h1{
+  font-size:1.2rem;
+}
+
+h2{
+  font-size:1.2rem;
+  text-align: center;
+  margin: 0 0 30px 0;
+}
+
+p{
+  margin-top:20px;  
+}
+
+small{
+  background:#333;
+  color:#fff;
+  display: block;
+  text-align: center;
+  padding:20px;
+}
+
+#header{
+  background:#333;
+  color:#fff;
+  text-align: center;
+  padding: 20px;
+}
+
+section{
+  padding:30px;
+}
+
+section:nth-child(2n){
+  background:#f3f3f3; 
+}
+
+#main-vidual img{
+  width: 100%;
+}
+
+#page-link{
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+#page-link li{
+  list-style: none;
+}
+
+#page-link li a{
+  color: #333;
+  padding:0 20px;
+  text-decoration: none;
+}
+
+#page-link li a::before{
+  content:'▼';
+  font-size:0.8rem;
+  padding:0 10px 0 0;
+  color: #ccc;
+}
+
+#footer{
+  position: relative;
+  z-index: 2;
+}
+
+/*==================================================
+ギャラリーのためのcss
+===================================*/
+.gallery{
+  columns: 4;/*段組みの数*/
+  padding:0 15px;/*ギャラリー左右に余白をつける*/
+  }
+  
+  .gallery li {
+      margin-bottom: 20px;/*各画像下に余白をつける*/
+  }
+  
+  /*ギャラリー内のイメージは横幅100%にする*/
+  .gallery img{
+    width:100%;
+    height:auto;
+    vertical-align: bottom;/*画像の下にできる余白を削除*/}
+  
+  /*　横幅900px以下の段組み設定　*/
+  @media only screen and (max-width: 900px) {
+    .gallery{
+    columns:3;
+    } 
+  }
+  
+  @media only screen and (max-width: 768px) {
+    .gallery{
+    columns: 2;
+    } 
+  }
+  
+  
+  /*========= レイアウトのためのCSS ===============*/
+  
+  ul{
+    margin:0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  a{
+    color: #333;
+  }
+  
+  a:hover,
+  a:active{
+    text-decoration: none;
+  }
+  
+  h1{
+    text-align: center;
+    font-size:6vw;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin:30px 0;
+  }
+  
+  p{
+    margin:0 10px 10px 10px;
+    word-wrap : break-word;
+  }
+  
+  /*画像を出現させるアニメーションCSS*/
+  
+  .flipLeft{
+  animation-name: flipLeft;
+  animation-duration:0.5s;
+  animation-fill-mode:forwards;
+  perspective-origin: left center;
+  opacity: 0;
+  }
+  
+  @keyframes flipLeft{
+    from {
+     transform: perspective(600px) translate3d(0, 0, 0) rotateY(30deg);
+    opacity: 0;
+    }
+  
+    to {
+    transform: perspective(600px) translate3d(0, 0, 0) rotateY(0deg);
+    opacity: 1;
+    }
+  }
+
+  /*==================================================
+スライダーのためのcss
+===================================*/
+.slider {/*横幅94%で左右に余白を持たせて中央寄せ*/
+  width:94%;
+   margin:0 auto;
+}
+
+.slider img {
+   width:100%;/*スライダー内の画像を横幅100%に*/
+   height:auto;
+}
+
+/*slickのJSで書かれるタグ内、スライド左右の余白調整*/
+
+.slider .slick-slide {
+   margin:0 10px;
+}
+
+/*矢印の設定*/
+
+/*戻る、次へ矢印の位置*/
+.slick-prev, 
+.slick-next {
+   position: absolute;/*絶対配置にする*/
+   top: 42%;
+   cursor: pointer;/*マウスカーソルを指マークに*/
+   outline: none;/*クリックをしたら出てくる枠線を消す*/
+   border-top: 2px solid #666;/*矢印の色*/
+   border-right: 2px solid #666;/*矢印の色*/
+   height: 15px;
+   width: 15px;
+}
+
+.slick-prev {/*戻る矢印の位置と形状*/
+   left: -1.5%;
+   transform: rotate(-135deg);
+}
+
+.slick-next {/*次へ矢印の位置と形状*/
+   right: -1.5%;
+   transform: rotate(45deg);
+}
+
+/*ドットナビゲーションの設定*/
+
+.slick-dots {
+   text-align:center;
+ margin:20px 0 0 0;
+}
+
+.slick-dots li {
+   display:inline-block;
+ margin:0 5px;
+}
+
+.slick-dots button {
+   color: transparent;
+   outline: none;
+   width:8px;/*ドットボタンのサイズ*/
+   height:8px;/*ドットボタンのサイズ*/
+   display:block;
+   border-radius:50%;
+   background:#ccc;/*ドットボタンの色*/
+}
+
+.slick-dots .slick-active button{
+   background:#333;/*ドットボタンの現在地表示の色*/
+}
+
+
+/*========= レイアウトのためのCSS ===============*/
+
+body{
+ background:#eee;
+}
+
+h2,p {
+   text-align:center;
+   padding:20px;
+}
+
+ul{
+ margin:0;
+ padding: 0;
+ list-style: none;
+}
+
+a{
+ color: #333;
+}
+
+a:hover,
+a:active{
+ text-decoration: none;
+}
